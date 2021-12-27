@@ -137,3 +137,7 @@ export async function storeMediaFileByPath(filename: string, path: string): Prom
 		}
 	)
 }
+
+export async function syncAnkiWeb() {
+    return await invoke('sync');
+}

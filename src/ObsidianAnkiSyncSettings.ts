@@ -7,8 +7,9 @@ export class ObsidianAnkiSyncSettings extends PluginSettingTab {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
+
 	display(): void {
-		let {containerEl} = this;
+		const { containerEl } = this;
 
 		containerEl.empty();
 
@@ -49,6 +50,18 @@ export class ObsidianAnkiSyncSettings extends PluginSettingTab {
 				this.plugin.settings.templatefolder = value;
 				this.plugin.saveData(this.plugin.settings);
 			})
+		);
+
+		new Setting(containerEl)
+		.setName('Synchronize with AnkiWeb')
+		.setDesc(
+			`Todo sync with AnkiWeb`,
+		)
+		.addToggle((toggle) =>
+			toggle.setValue(this.plugin.settings.syncAnkiWeb).onChange((value) => {
+				this.plugin.settings.syncAnkiWeb = value;
+				this.plugin.saveData(this.plugin.settings);
+			}),
 		);
 
 		// Help Sections

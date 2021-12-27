@@ -162,7 +162,16 @@ export default class ObsidianAnkiSyncPlugin extends Plugin {
 		if (failedCreated > 0) summery += `Failed Created Blocks: ${failedCreated}`;
 		if (failedUpdated > 0) summery += `Failed Updated Blocks: ${failedUpdated}`;
 		if (failedDeleted > 0) summery += `Failed Deleted Blocks: ${failedDeleted}`;
-		if (failedCreated > 0 || failedUpdated > 0 || failedDeleted > 0) summery += `\nPlease create an issue at plugin's github reprository.`;
+		if (failedCreated > 0 || failedUpdated > 0 || failedDeleted > 0) { summery += `\nPlease create an issue at plugin's github reprository.`;}
+		else if(this.settings.syncAnkiWeb) {
+			// -- Sychronize with AnkiWeb if "sync AnkiWeb setting" is enabled
+			try {
+				new Notice('TODO: Synchronize with AnkiWeb');
+				await AnkiConnect.syncAnkiWeb();
+			} catch(err) {
+				summery += 'Failed to synchronize AnkiWeb';
+			}
+		}
 		new Notice(summery, 4000);
 		console.log(summery);
 	}
